@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.env
+.env.*
+!.env.example
+data
+test-results
+playwright-report
+coverage
+BUILD_STATUS.md
+LESSONLEDGER_MASTER_PROMPT.md

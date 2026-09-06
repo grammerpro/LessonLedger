@@ -1,0 +1,9 @@
+node_modules
+.next
+data
+pnpm-lock.yaml
+test-results
+playwright-report
+docs/images
+public/images
+BUILD_STATUS.md

@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+data/
+test-results/
+playwright-report/
+coverage/
+*.tsbuildinfo
+BUILD_STATUS.md
+LESSONLEDGER_MASTER_PROMPT.md
+.DS_Store

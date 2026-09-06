@@ -1,0 +1,88 @@
+export type Segment = { location: string; text: string };
+export type FindingStatus = 'open' | 'confirmed' | 'dismissed' | 'resolved';
+export type Finding = {
+  id: string;
+  workspace_id: string;
+  check_id: string;
+  version_id: string;
+  snapshot_id: string;
+  status: FindingStatus;
+  title: string;
+  category: string;
+  severity: 'high' | 'medium' | 'low';
+  sourceUrl: string;
+  evidence: string;
+  original: string;
+  location: string;
+  explanation: string;
+  replacement: string;
+  lessonTitle: string;
+  courseId: string;
+  capturedAt: string;
+  sourceTitle: string;
+  provenance: string;
+  created_at: string;
+};
+export type Course = {
+  id: string;
+  title: string;
+  product: string;
+  description: string;
+  color: string;
+  created_at: string;
+};
+export type Lesson = {
+  id: string;
+  course_id: string;
+  title: string;
+  versionId: string;
+  format: string;
+  segments: Segment[];
+  created_at: string;
+};
+export type Source = {
+  id: string;
+  course_id: string;
+  title: string;
+  url: string;
+  provenance: string;
+  text?: string;
+  validated: boolean;
+  created_at: string;
+};
+export type CheckRun = {
+  id: string;
+  course_id: string;
+  status: string;
+  progress: number;
+  total: number;
+  covered: number;
+  inconclusive: number;
+  findings: number;
+  error?: string;
+  warnings?: string[];
+  created_at: string;
+  completedAt?: string;
+  attempts: number;
+};
+export type WorkspaceData = {
+  workspace: {
+    id: string;
+    name: string;
+    demo: boolean;
+    notifications: boolean;
+    retentionDays: number;
+    timezone: string;
+  };
+  user: { name: string; email: string; role: string };
+  workspaces: { id: string; name: string }[];
+  courses: Course[];
+  lessons: Lesson[];
+  sources: Source[];
+  findings: Finding[];
+  checks: CheckRun[];
+  schedules: any[];
+  subscription: any;
+  usage: { used: number; limit: number; reset: string };
+  configuration: { checks: boolean; billing: boolean; email: boolean };
+};

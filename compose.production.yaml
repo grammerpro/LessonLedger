@@ -1,0 +1,45 @@
+# Requires an operator-provided .env.production and external managed services.
+services:
+  migrate:
+    build: .
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      DEMO_MODE: 'false'
+    command: ['pnpm', 'db:migrate']
+    restart: 'no'
+  web:
+    build: .
+    init: true
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      DEMO_MODE: 'false'
+    ports: ['127.0.0.1:3000:3000']
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    security_opt: ['no-new-privileges:true']
+    cap_drop: ['ALL']
+    stop_grace_period: 60s
+  worker:
+    build: .
+    init: true
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      DEMO_MODE: 'false'
+    command: ['pnpm', 'worker']
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    security_opt: ['no-new-privileges:true']
+    cap_drop: ['ALL']
+    stop_grace_period: 90s
+    healthcheck:
+      test: ['CMD', 'pnpm', 'exec', 'tsx', 'scripts/worker-health.ts']
+      interval: 30s
+      timeout: 10s
+      start_period: 45s

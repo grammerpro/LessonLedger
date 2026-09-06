@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: lessonledger
+      POSTGRES_PASSWORD: local-development-only
+      POSTGRES_DB: lessonledger
+    ports: ['127.0.0.1:5432:5432']
+    volumes: ['postgres-data:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U lessonledger']
+      interval: 5s
+      retries: 10
+  storage:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data --console-address :9001
+    environment:
+      MINIO_ROOT_USER: lessonledger-local
+      MINIO_ROOT_PASSWORD: local-storage-password
+    ports: ['127.0.0.1:9000:9000', '127.0.0.1:9001:9001']
+    volumes: ['storage-data:/data']
+  storage-init:
+    image: minio/mc:RELEASE.2025-08-13T08-35-41Z
+    depends_on: [storage]
+    entrypoint:
+      [
+        '/bin/sh',
+        '-c',
+        'until mc alias set local http://storage:9000 lessonledger-local local-storage-password; do sleep 2; done; mc mb --ignore-existing local/lessonledger; mc anonymous set none local/lessonledger',
+      ]
+  mail:
+    image: axllent/mailpit:v1.27.8
+    ports: ['127.0.0.1:1025:1025', '127.0.0.1:8025:8025']
+volumes:
+  postgres-data:
+  storage-data:

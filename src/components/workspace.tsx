@@ -1412,7 +1412,7 @@ function Overview({
             <Link2 size={17} />
           </div>
           <div className="coverage-value">
-            <strong>{last ? `${coverage}%` : '—'}</strong>
+            <strong>{last ? `${coverage}%` : 'N/A'}</strong>
             <Badge tone={coverage === 100 ? 'green' : 'amber'}>
               {last ? 'Latest check' : 'Not checked yet'}
             </Badge>

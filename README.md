@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/images/banner.svg" alt="LessonLedger — Keep every lesson current." width="100%" /></p>
+<p align="center"><img src="docs/images/banner.svg" alt="LessonLedger: Keep every lesson current." width="100%" /></p>
 
 <p align="center"><strong>Created and maintained by Vardhan.</strong></p>
 

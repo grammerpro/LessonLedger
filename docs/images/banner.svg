@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-labelledby="title desc">
-<title id="title">LessonLedger — Keep every lesson current.</title><desc id="desc">An original ivory and evergreen editorial banner with a page and revision mark.</desc>
+<title id="title">LessonLedger: Keep every lesson current.</title><desc id="desc">An original ivory and evergreen editorial banner with a page and revision mark.</desc>
 <rect width="1280" height="340" rx="12" fill="#f7f6f2"/><rect x="24" y="24" width="1232" height="292" rx="4" fill="none" stroke="#dedfd7"/>
 <g transform="translate(73 65)" fill="none" stroke="#1d5c49" stroke-width="2.5"><path d="M0 0h27l12 13v43H0zM26 0v15h13M8 25h22M8 34h14M8 43h9"/><path d="m29 47 12-12 5 5-12 12-7 2z" fill="#f7f6f2"/></g>
 <text x="133" y="109" fill="#1d5c49" font-family="Georgia,serif" font-size="44" letter-spacing="-2">LessonLedger.</text>

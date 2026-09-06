@@ -12,7 +12,7 @@ This is a release gate, not a claim that the software has been deployed.
 - [x] Actual application screenshots; responsive and automated accessibility checks at three widths
 - [x] Production compilation and strict type checking
 - [x] Local SQLite backup restored with integrity and entity-count checks
-- [x] Clean lockfile install and complete local verification — see verification report
+- [x] Clean lockfile install and complete local verification; see verification report
 - [ ] PostgreSQL-specific suite and container startup on a Docker-capable host
 
 ## Live providers and quality

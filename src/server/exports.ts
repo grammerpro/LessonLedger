@@ -19,7 +19,7 @@ export async function exportWork(ctx: Context, format: 'md' | 'csv' | 'pdf') {
       .where({ workspace_id: ctx.workspace, status: 'confirmed' })
       .orderBy('created_at')
   ).map(unpack);
-  const title = `${ctx.demo ? 'Sample workspace — ' : ''}LessonLedger approved worklist`;
+  const title = `${ctx.demo ? 'Sample workspace: ' : ''}LessonLedger approved worklist`;
   let bytes: Buffer;
   let type: string;
   const rows = findings.map((f) => [

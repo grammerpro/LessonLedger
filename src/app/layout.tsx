@@ -8,7 +8,7 @@ import '@fontsource/newsreader/400-italic.css';
 import './globals.css';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
-  title: { default: 'LessonLedger — Keep every lesson current.', template: '%s | LessonLedger' },
+  title: { default: 'LessonLedger: Keep every lesson current.', template: '%s | LessonLedger' },
   description: 'Monitor source changes, review evidence, and prepare precise lesson updates.',
   icons: { icon: '/icon.svg' },
 };

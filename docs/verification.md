@@ -16,7 +16,7 @@ The application is implemented locally. Results below distinguish executed check
 | PostgreSQL/container execution                 | Not run: no local Docker/PostgreSQL runtime                      |
 | Live comparison, SMTP and Stripe lifecycle     | Not run: credentials not supplied                                |
 | Deployed smoke test                            | Not run: no deployment target                                    |
-| GitHub CI                                      | Not run: no repository destination                               |
+| GitHub CI                                      | Pending first publication; inspect the repository Actions runs   |
 
 A clean copy also passed a frozen-lockfile install, migration/seed, the full verification command and SQLite restore. An actual bounded fetch of the official Notion formulas guide returned readable content. This source-only smoke did not invoke the comparison provider.
 

@@ -39,7 +39,7 @@ This is a release gate, not a claim that the software has been deployed.
 
 - [ ] Supply the legal business name, privacy contact, hosting/email processor names and final privacy policy
 - [ ] Choose licensing terms; rights currently remain with Vardhan
-- [ ] Supply the authorized GitHub repository URL, or account/name/visibility for a new repository
+- [x] Authorize the public [grammerpro/LessonLedger](https://github.com/grammerpro/LessonLedger) repository
 - [x] Review tracked files and staged diff for secrets and private content
 - [ ] Push the tested feature branch; record its full commit SHA
 - [ ] Inspect the actual CI result after push

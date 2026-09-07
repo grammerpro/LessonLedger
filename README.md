@@ -100,4 +100,4 @@ The launch work is provider verification, PostgreSQL/container validation, human
 
 ## Maintainer and licensing
 
-Created and maintained by **Vardhan**. Copyright © 2026 Vardhan. No open-source license has been selected; rights remain with Vardhan. Dependency and font licenses are retained separately in [third-party notices](docs/third-party-notices.md). A project contact and GitHub destination have not yet been supplied.
+Created and maintained by **Vardhan**. Copyright © 2026 Vardhan. The project lives at [grammerpro/LessonLedger](https://github.com/grammerpro/LessonLedger). No open-source license has been selected; rights remain with Vardhan. Dependency and font licenses are retained separately in [third-party notices](docs/third-party-notices.md). A private security contact has not yet been supplied.

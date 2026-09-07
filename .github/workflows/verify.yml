@@ -41,7 +41,7 @@ jobs:
           POSTGRES_PASSWORD: ci-disposable
           POSTGRES_DB: lessonledger_test
         ports: ['5432:5432']
-        options: --health-cmd "pg_isready -U lessonledger" --health-interval 5s --health-timeout 5s --health-retries 10
+        options: --health-cmd "pg_isready -U lessonledger -d lessonledger_test" --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       DATABASE_URL: postgres://lessonledger:ci-disposable@localhost:5432/lessonledger_test
       TEST_DATABASE_URL: postgres://lessonledger:ci-disposable@localhost:5432/lessonledger_test
@@ -58,9 +58,19 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - run: pg_dump "$DATABASE_URL" --format=custom --file=/tmp/ledger-backup.dump
-      - run: createdb -h localhost -U lessonledger lessonledger_restore
+      - name: Back up with the matching PostgreSQL tools
+        run: docker exec "${{ job.services.postgres.id }}" pg_dump -U lessonledger -d lessonledger_test --format=custom --file=/tmp/ledger-backup.dump
+      - name: Create the disposable restore database
+        run: docker exec "${{ job.services.postgres.id }}" createdb -U lessonledger lessonledger_restore
+      - name: Restore the PostgreSQL backup
+        run: docker exec "${{ job.services.postgres.id }}" pg_restore -U lessonledger --dbname=lessonledger_restore --exit-on-error /tmp/ledger-backup.dump
+      - name: Compare restored entity counts
         env:
-          PGPASSWORD: ci-disposable
-      - run: pg_restore --dbname=postgres://lessonledger:ci-disposable@localhost:5432/lessonledger_restore --exit-on-error /tmp/ledger-backup.dump
-      - run: psql postgres://lessonledger:ci-disposable@localhost:5432/lessonledger_restore -c 'SELECT count(*) FROM workspaces;'
+          POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+        run: |
+          for table in workspaces courses lessons lesson_versions sources findings; do
+            source_count=$(docker exec "$POSTGRES_CONTAINER" psql -U lessonledger -d lessonledger_test -At -v ON_ERROR_STOP=1 -c "SELECT count(*) FROM $table")
+            restored_count=$(docker exec "$POSTGRES_CONTAINER" psql -U lessonledger -d lessonledger_restore -At -v ON_ERROR_STOP=1 -c "SELECT count(*) FROM $table")
+            test "$source_count" = "$restored_count"
+            echo "$table: $restored_count records restored"
+          done

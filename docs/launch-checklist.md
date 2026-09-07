@@ -13,7 +13,8 @@ This is a release gate, not a claim that the software has been deployed.
 - [x] Production compilation and strict type checking
 - [x] Local SQLite backup restored with integrity and entity-count checks
 - [x] Clean lockfile install and complete local verification; see verification report
-- [ ] PostgreSQL-specific suite and container startup on a Docker-capable host
+- [x] PostgreSQL-specific suite and disposable backup restore in GitHub Actions
+- [ ] Production application container startup on a Docker-capable host
 
 ## Live providers and quality
 
@@ -41,7 +42,7 @@ This is a release gate, not a claim that the software has been deployed.
 - [ ] Choose licensing terms; rights currently remain with Vardhan
 - [x] Authorize the public [grammerpro/LessonLedger](https://github.com/grammerpro/LessonLedger) repository
 - [x] Review tracked files and staged diff for secrets and private content
-- [ ] Push the tested feature branch; record its full commit SHA
-- [ ] Inspect the actual CI result after push
+- [x] Publish the reviewed code to the repository's main branch; GitHub retains full commit SHAs
+- [x] Inspect the actual CI results; recheck the latest revision before release
 
 Unavailable credentials do not prevent the local sample from working. They do prevent calling live integrations or production operation verified.

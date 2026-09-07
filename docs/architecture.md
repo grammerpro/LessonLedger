@@ -9,6 +9,8 @@ LessonLedger uses one pnpm package with separate Next.js web and long-lived work
 
 SQLite is a deliberate convenience for a reproducible sample, not the multi-host production database. Production web and worker share PostgreSQL; queue state lives in application tables rather than a second Redis service.
 
+Local authentication uses the library's Kysely adapter with `BEGIN IMMEDIATE` transactions and bounded asynchronous lock acquisition. Reserving the writer before reading a token prevents the worker from invalidating the transaction's WAL snapshot. Atomic token consumption and rollback remain enabled. This follows [SQLite's documented transaction isolation behavior](https://www.sqlite.org/isolation.html).
+
 ## Tenant boundary
 
 Every business record carries `workspace_id`. Membership comes from the authenticated user, or from an opaque sample token in sample mode. Client workspace IDs are never accepted as authorization. Owners manage billing, monitoring, preferences and deletion; editors manage course/review content. No invitation UI is shipped.

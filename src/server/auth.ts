@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { magicLink } from 'better-auth/plugins';
-import Database from 'better-sqlite3';
+import { AuthSqliteDialect } from './auth-sqlite';
 import { Pool } from 'pg';
 import { config, validateProduction } from './config';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -27,7 +27,7 @@ function createAuth() {
     secret: process.env.BETTER_AUTH_SECRET || (config.demo ? demoSecret() : undefined),
     database: config.database
       ? new Pool({ connectionString: config.database })
-      : new Database(config.sqlite),
+      : { dialect: new AuthSqliteDialect(config.sqlite), type: 'sqlite', transaction: true },
     trustedOrigins: [config.url],
     session: { expiresIn: 60 * 60 * 24 * 7, updateAge: 60 * 60 * 24 },
     rateLimit: { enabled: true, window: 60, max: 10, storage: 'database' },

@@ -2,23 +2,28 @@
 
 The application is implemented locally. Results below distinguish executed checks from supplied but unexecuted deployment artifacts.
 
-| Check                                          | Result                                                           |
-| ---------------------------------------------- | ---------------------------------------------------------------- |
-| Application + Better Auth migrations on SQLite | Passed                                                           |
-| Strict TypeScript                              | Passed                                                           |
-| ESLint on project sources                      | Passed                                                           |
-| Service tests                                  | 71 passed, including PDF text integrity and checkout concurrency |
-| Browser acceptance                             | 7 passed, including complete workflow and passwordless sign-in   |
-| Responsive and axe scans                       | Passed at 390, 768 and 1440 pixels; light and dark themes        |
-| Production Next.js build                       | Passed, dynamic pages and nonce proxy included                   |
-| SQLite online backup and disposable restore    | Passed; integrity and six entity counts matched                  |
-| Production dependency audit                    | 0 reported vulnerabilities at the time of the local audit        |
-| PostgreSQL/container execution                 | Not run: no local Docker/PostgreSQL runtime                      |
-| Live comparison, SMTP and Stripe lifecycle     | Not run: credentials not supplied                                |
-| Deployed smoke test                            | Not run: no deployment target                                    |
-| GitHub CI                                      | Pending first publication; inspect the repository Actions runs   |
+| Check                                          | Result                                                                     |
+| ---------------------------------------------- | -------------------------------------------------------------------------- |
+| Application + Better Auth migrations on SQLite | Passed                                                                     |
+| Strict TypeScript                              | Passed                                                                     |
+| ESLint on project sources                      | Passed                                                                     |
+| Service tests                                  | 73 passed, including authentication concurrency, PDF integrity and billing |
+| Browser acceptance                             | 7 passed, including complete workflow and passwordless sign-in             |
+| Responsive and axe scans                       | Passed at 390, 768 and 1440 pixels; light and dark themes                  |
+| Production Next.js build                       | Passed, dynamic pages and nonce proxy included                             |
+| SQLite online backup and disposable restore    | Passed; integrity and six entity counts matched                            |
+| Production dependency audit                    | 0 reported vulnerabilities at the time of the local audit                  |
+| PostgreSQL tests and disposable restore        | Passed in GitHub Actions; matching container tools and six entity counts   |
+| Production application container startup       | Not yet run                                                                |
+| Live comparison, SMTP and Stripe lifecycle     | Not run: credentials not supplied                                          |
+| Deployed smoke test                            | Not run: no deployment target                                              |
+| GitHub CI                                      | Both jobs passed; see the linked run and latest branch results             |
 
 A clean copy also passed a frozen-lockfile install, migration/seed, the full verification command and SQLite restore. An actual bounded fetch of the official Notion formulas guide returned readable content. This source-only smoke did not invoke the comparison provider.
+
+The first [successful remote workflow](https://github.com/grammerpro/LessonLedger/actions/runs/34078582200) verified 71 service tests on SQLite and PostgreSQL, seven browser tests, compilation, and both restore checks. Two additional local authentication concurrency tests were subsequently added. Inspect [the latest main-branch workflow](https://github.com/grammerpro/LessonLedger/actions/workflows/verify.yml?query=branch%3Amain) for the result of each published revision.
+
+Remote execution exposed a PostgreSQL client/server version mismatch and a contrast scan running during a theme transition. Backup tooling now comes from the tested database container; contrast scans await completed transitions and report affected elements. A local sign-in retest also exposed a concurrent SQLite snapshot conflict, addressed by reserving the writer before the authentication transaction reads a token.
 
 Final interface checks also verified the UTC billing reset date, the search keyboard shortcut, and closing mobile navigation by selecting a route or pressing Escape. The closed drawer is excluded from keyboard and accessibility navigation. Actual landing, dashboard, import, review and billing screens were inspected at all three widths, including the open mobile drawer.
 

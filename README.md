@@ -75,7 +75,7 @@ pnpm test:e2e
 pnpm backup:verify
 ```
 
-`pnpm verify` runs lint, type checking, service tests, production build, and browser acceptance tests. Browser tests cover the sample workflow, real library sign-in through the local inbox, tenant isolation, stored hostile content, keyboard dialogs, responsive layouts, and automated accessibility scans. The workflow in `.github/workflows/verify.yml` also defines PostgreSQL testing and a disposable restore check; its remote result is only known after the repository is pushed and CI runs.
+`pnpm verify` runs lint, type checking, service tests, production build, and browser acceptance tests. Browser tests cover the sample workflow, real library sign-in through the local inbox, tenant isolation, stored hostile content, keyboard dialogs, responsive layouts, and automated accessibility scans. [GitHub Actions](https://github.com/grammerpro/LessonLedger/actions/workflows/verify.yml) also runs PostgreSQL testing and disposable SQLite/PostgreSQL restore checks. See the actual workflow result for each revision.
 
 Capture the actual running sample with `pnpm screenshots`. The screenshots above come from the application, not design mockups. [Verification details](docs/verification.md) distinguish results that ran locally from pending release checks.
 
@@ -96,7 +96,7 @@ Starter ($49/month) and Studio ($129/month) are experimental pricing hypotheses.
 
 ## What comes next
 
-The launch work is provider verification, PostgreSQL/container validation, human-reviewed comparison evaluation, an exercised production backup policy, and finalized privacy details. Future product work may include richer product/version mapping and expanded source registries. Video transcription, OCR, authenticated crawling, automatic video edits, and team invitations are outside v1.
+The launch work is provider verification, production application container validation, human-reviewed comparison evaluation, an exercised production backup policy, and finalized privacy details. Future product work may include richer product/version mapping and expanded source registries. Video transcription, OCR, authenticated crawling, automatic video edits, and team invitations are outside v1.
 
 ## Maintainer and licensing
 

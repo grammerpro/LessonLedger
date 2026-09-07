@@ -2298,9 +2298,8 @@ function SettingsView({
                 {data.configuration.billing ? 'Billing configured' : 'Billing is not configured'}
               </p>
               <p className="fine-print">
-                For live checks, configure OPENAI_API_KEY and OPENAI_MODEL. Billing requires Stripe
-                keys, prices, and webhook setup. Full instructions: docs/setup.md in the project
-                repository.
+                Complete service setup to enable live checks and billing. Full instructions are in
+                docs/setup.md in the project repository.
               </p>
             </div>
             <div className="settings-panel danger-panel">

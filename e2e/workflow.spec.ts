@@ -213,8 +213,22 @@ for (const width of [390, 768, 1440])
     }
     await page.getByRole('button', { name: 'Switch to dark theme' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation instanceof CSSTransition)
+          .map((animation) => animation.finished.catch(() => undefined)),
+      );
+    });
     const dark = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
-    expect(dark.violations.map((v) => v.id)).toEqual([]);
+    expect(
+      dark.violations.map((v) => ({
+        id: v.id,
+        nodes: v.nodes.map((node) => ({ target: node.target, summary: node.failureSummary })),
+      })),
+    ).toEqual([]);
   });
 
 test('stored hostile text stays inert and unauthorized writes fail', async ({ page }) => {
